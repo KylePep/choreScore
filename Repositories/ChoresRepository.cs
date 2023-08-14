@@ -25,12 +25,21 @@ namespace choreScore.Repositories
             Chore chore = GetChoreByName(choreTitle);
             if (choreData.Title == null) choreData.Title = chore.Title;
             if (choreData.Body == null) choreData.Body = chore.Body;
-            if (choreData.Important == false) choreData.Important = chore.Important;
+            if (choreData.Important == false) 
+            {
+                if(!chore.Important == true)choreData.Important = false;
+                };
             if (choreData.Duration == 0) choreData.Duration = chore.Duration;
+
+            // if (!chore.Title.Equals(choreData.Title)) chore.Title = choreData.Title;
+            // if (choreData.Body.)
+
+            chore = choreData;
+
                 
             int changeChore = dbChores.FindIndex(chore => chore.Title.ToLower() == choreTitle.ToLower());
-                dbChores[changeChore] = choreData;
-            return choreData;
+            Chore returnChore = dbChores[changeChore] = choreData;
+            return returnChore;
         }
 
         internal Chore CreateChore(Chore choreData)
